@@ -119,36 +119,69 @@ class JackTokenizer():
         return f"<identifier> {token} </identifier>"
     
     @staticmethod
-    def write(content, outFile):
-        with open(outFile, "w") as f:
-            f.write("<tokens>\n")
-            
-            for line in content:  # For every instruction
+    def write(content):
+            return
                 
-                while len(line) != 0:  # While there are still tokens in this instruction:
-                    
-                    token = JackTokenizer.advance(line)  # Get next token, and insert it to output file
-                    tokenType = JackTokenizer.tokenType(token)
-                    
-                    # Splice the line to remove this token
-                    line = line[len(token):]  
-                    
-                    # Remove whitespace/quotes
-                    line = line.strip()
-                    token = token.strip('"')
-                
-                    if tokenType == "INT_CONST":
-                        f.write(f"{JackTokenizer.intVal(token)}\n")
-                    elif tokenType == "SYMBOL":
-                        f.write(f"{JackTokenizer.symbol(token)}\n")
-                    elif tokenType == "KEYWORD":
-                        f.write(f"{JackTokenizer.keyWord(token)}\n")
-                    elif tokenType == "STRING_CONST":
-                        f.write(f"{JackTokenizer.stringVal(token)}\n")
-                    elif tokenType == "IDENTIFIER":
-                        f.write(f"{JackTokenizer.identifier(token)}\n")
-                        
-            f.write("</tokens>")
+    
+        #if tokenType == "INT_CONST":
+        #    f.write(f"{JackTokenizer.intVal(token)}\n")
+       # elif tokenType == "SYMBOL":
+       #     f.write(f"{JackTokenizer.symbol(token)}\n")
+      #  elif tokenType == "KEYWORD":
+       #     f.write(f"{JackTokenizer.keyWord(token)}\n")
+      #  elif tokenType == "STRING_CONST":
+       #     f.write(f"{JackTokenizer.stringVal(token)}\n")
+       # elif tokenType == "IDENTIFIER":
+        #    f.write(f"{JackTokenizer.identifier(token)}\n")
+
+
+class CompilationEngine():
+    
+    def __init__(self):
+        return
+    
+    def compileClass():
+        return
+    
+    def compileClassVarDec():
+        return
+    
+    def compileSubroutineDec():
+        return
+    
+    def compileParameterList():
+        return
+        
+    def compileSubroutineBody():
+        return
+    
+    def compileVarDec():
+        return
+    
+    def compileStatements():
+        return
+    
+    def compileLet():
+        return
+    
+    def compileIf():
+        return
+        
+    def compileWhile():
+        return
+    def compileDo():
+        return
+    def compileReturn():
+        return
+    
+    def compileExpression():
+        return
+    
+    def compileTerm():
+        return
+    
+    def compileExpressionList():
+        return
     
     
 def main():
@@ -163,6 +196,23 @@ def main():
     if os.path.isfile(name):  # If this is a file
         content, outFile = JackTokenizer(name)
         JackTokenizer.write(content, outFile)
+        
+        
+        with open("outfile", "w") as f:
+            
+            for line in content:
+                while len(line) != 0:
+                    
+                    token = JackTokenizer.advance(line)  # Get next token
+                    tokenType = JackTokenizer.tokenType(token)
+                    # Splice the line to remove this token
+                    line = line[len(token):]  
+                    line = line.strip()
+                    token = token.strip('"')
+                    
+                    
+        
+        
     else:  # This is a directory
         paths = glob.glob(os.path.join(name, '*'))  # Get all files in this directory
         for file_path in paths:
