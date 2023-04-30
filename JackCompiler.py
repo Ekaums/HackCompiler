@@ -18,25 +18,18 @@ class JackTokenizer():
         outName += "T.xml"
     
         content = ""
-        pattern = r"^(.*?)(?=\/\/|\/\*\*|$)"
+        pattern = r"^(?:(?!\s\*\s))(.*?)(?=\/\/|\/\*\*|\*\/|$)"
         switch = False
             
         with open(file) as f:
             for line in f:
-                
-                if line[:3] == "/**":
-                    switch = True
-                    pass
-                elif line[:2] == "*/":
-                    switch = False
-                elif switch:
-                    pass
                     
                 match = re.search(pattern, line)  # Get every instruction, and put in content
-                match = match.group().strip()
                 if match:
+                    match = match.group().strip()
                     content += match
-                        
+                    content += "\n"
+                    
         return content, outName
 
     
@@ -122,7 +115,7 @@ class JackTokenizer():
     
     @staticmethod
     def stringVal(token):
-        return f"<stringConstant> {token} </stringConstant>\n"
+        return "<stringConstant> {} </stringConstant>\n".format(token.strip('"'))
     
     @staticmethod
     def identifier(token):
@@ -451,9 +444,9 @@ class CompilationEngine():
             current = current[len(token):].strip()
             result += "<symbol> [ </symbol>\n"
             
-            result = CompilationEngine.compileExpression()
+            result += CompilationEngine.compileExpression()
             
-            token =JackTokenizer.advance(current)
+            token = JackTokenizer.advance(current)
             current = current[len(token):].strip()
             if token == "]":
                 print("ADDING ]")
@@ -720,7 +713,7 @@ class CompilationEngine():
             
             result += CompilationEngine.compileExpression()
             
-            tokenType = JackTokenizer.tokenType(token)
+            token = JackTokenizer.advance(current)
             current = current[len(token):].strip()
             
             if token == ")":
