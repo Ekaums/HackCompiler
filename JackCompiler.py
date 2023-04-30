@@ -28,7 +28,6 @@ class JackTokenizer():
                 if match:
                     match = match.group().strip()
                     content += match
-                    content += "\n"
                     
         return content, outName
 
@@ -140,7 +139,7 @@ class JackTokenizer():
 class CompilationEngine():
     
     global op  # Operators to be used by compileExpression
-    op = ["+", "-", "=", ">", "<", "*", "/", "|"]
+    op = ["+", "-", "=", ">", "<", "*", "/", "|", "~", "&"]
     global statements
     statements = ["if", "while", "do", "let", "return"]
     
@@ -217,9 +216,11 @@ class CompilationEngine():
         token = JackTokenizer.advance(current)
         
         while token == ",":  # Check for any other variables
+            print(", Adding new variable")
             current = current[len(token):].strip()
             result += JackTokenizer.write_term(token, "SYMBOL")
             token = JackTokenizer.advance(current)  # varName
+            print(f"varName: {token}")
             current = current[len(token):].strip()
             result += JackTokenizer.write_term(token, "IDENTIFIER")
             token = JackTokenizer.advance(current)
@@ -279,8 +280,10 @@ class CompilationEngine():
         global current
         
         result = "<parameterList>\n"
+        print("param List")
 
         token = JackTokenizer.advance(current)  # Either type or )
+        print(f"token: {token}")
         
         if token != ")":  # If are no args, then we are done
         
@@ -289,6 +292,7 @@ class CompilationEngine():
             result += JackTokenizer.write_term(token, tokenType)
             
             token = JackTokenizer.advance(current)  # varName
+            print(f"varName: {token}")
             current = current[len(token):].strip()
             result += JackTokenizer.write_term(token, "IDENTIFIER")
             
@@ -296,17 +300,20 @@ class CompilationEngine():
             
             # Check if we have another arg. If so, add it
             while token == ",":
-            
+                print("ADDINNG ,")
                 result += JackTokenizer.write_term(token, "SYMBOL")
                 current = current[len(token):].strip()
                 
                 token = JackTokenizer.advance(current)  # type
+                print(f"type: {token}")
                 tokenType = JackTokenizer.tokenType(token)
                 result += JackTokenizer.write_term(token, tokenType)
+                current = current[len(token):].strip()
                 
                 token = JackTokenizer.advance(current)  # varName
-                current = current[len(token):].strip()
+                print(f"varName: {token}")
                 result += JackTokenizer.write_term(token, "IDENTIFIER")
+                current = current[len(token):].strip()
                 
                 token = JackTokenizer.advance(current)
         
@@ -605,6 +612,7 @@ class CompilationEngine():
             token = JackTokenizer.advance(current)  # )
             current = current[len(token):].strip()
             if token == ")":
+                print("ADDING )")
                 result += "<symbol> ) </symbol>\n"
             
         
@@ -614,6 +622,7 @@ class CompilationEngine():
             result += JackTokenizer.write_term(nextToken, "SYMBOL")
             
             token = JackTokenizer.advance(current)  # bar
+            print(f"bar: {token}")
             current = current[len(token):].strip()
             result += JackTokenizer.write_term(token, "IDENTIFIER")
             
@@ -659,7 +668,7 @@ class CompilationEngine():
             result += CompilationEngine.compileExpression()
             token = JackTokenizer.advance(current)  # ;
             current = current[len(token):].strip()
-            token = JackTokenizer.write_term(";", "SYMBOL")
+            result += JackTokenizer.write_term(";", "SYMBOL")
             
         result += "</returnStatement>\n"
             
@@ -708,7 +717,7 @@ class CompilationEngine():
             
             result += CompilationEngine.compileTerm()
                 
-        elif token == "(":
+        elif token == "(":  # (expression)
             result += "<symbol> ( </symbol>\n"
             
             result += CompilationEngine.compileExpression()
@@ -797,6 +806,7 @@ class CompilationEngine():
             token = JackTokenizer.advance(current)
             
             while token == ",":  # If we have more args
+                print("ADDING ,")
                 current = current[len(token):].strip()
                 result += "<symbol> , </symbol>\n"
                 
