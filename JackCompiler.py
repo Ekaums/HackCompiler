@@ -14,7 +14,7 @@ class JackTokenizer():
     
         #Initialization
         outName = file.split(".")[0]  # Get file name without extension, for output file
-        outName += "T.xml"
+        outName += ".xml"
         content = ""
         pattern = r"^(?:(?!\s\*\s))(.*?)(?=\/\/|\/\*\*|\*\/|$)"
             
