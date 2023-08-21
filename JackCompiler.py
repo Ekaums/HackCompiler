@@ -20,7 +20,6 @@ class JackTokenizer():
             
         with open(file) as f:
             for line in f:
-                    
                 match = re.search(pattern, line)  # Get every instruction, and put in content
                 if match:
                     match = match.group().strip()
@@ -360,14 +359,14 @@ class CompilationEngine():
         
         return result
     
-    def compileStatements():  # *Statements
+    def compileStatements():  # Statements
         global current
         result = "<statements>\n"
         
         token = JackTokenizer.advance(current)
         
         while (token == "let" or token == "if" or token == "while" or token == "do" or token == "return"):
-            current = current[len(token):].strip()
+            current = current[len(token):].strip()  # Remove the token we have parsed
             
             if token == "let":
                 result += CompilationEngine.compileLet()
@@ -736,14 +735,14 @@ def main():
     global current
     current = ""
         
-    if os.path.isfile(name):  # If this is a file
+    if os.path.isfile(name):  # If this is an actual file/directory
         
         content, outFile = JackTokenizer.init(name)
         result = ""
         
         current = content
 
-        while len(current) != 0:  # While there are still tokens in this instruction:
+        while len(current) != 0:  # While there are still tokens in this file:
             token = JackTokenizer.advance(current)  # Get next token
             
             if token in statements:
