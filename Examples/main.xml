@@ -1,17 +1,17 @@
 <class>
 <keyword> class </keyword>
-<identifier> Main </identifier>
+<classidentifier> Main </classidentifier>
 <symbol> { </symbol>
 <classVarDec>
 <keyword> static </keyword>
 <keyword> boolean </keyword>
-<identifier> test </identifier>
+<staticidentifier> test </staticidentifier>
 <symbol> ; </symbol>
 </classVarDec>
 <subroutineDec>
 <keyword> function </keyword>
 <keyword> void </keyword>
-<identifier> main </identifier>
+<subroutineidentifier> main </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -21,7 +21,7 @@
 <varDec>
 <keyword> var </keyword>
 <identifier> SquareGame </identifier>
-<identifier> game </identifier>
+<varidentifier> game </varidentifier>
 <symbol> ; </symbol>
 </varDec>
 <statements>
@@ -75,7 +75,7 @@
 <subroutineDec>
 <keyword> function </keyword>
 <keyword> void </keyword>
-<identifier> more </identifier>
+<subroutineidentifier> more </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -85,21 +85,21 @@
 <varDec>
 <keyword> var </keyword>
 <keyword> int </keyword>
-<identifier> i </identifier>
+<varidentifier> i </varidentifier>
 <symbol> , </symbol>
-<identifier> j </identifier>
+<varidentifier> j </varidentifier>
 <symbol> ; </symbol>
 </varDec>
 <varDec>
 <keyword> var </keyword>
 <identifier> String </identifier>
-<identifier> s </identifier>
+<varidentifier> s </varidentifier>
 <symbol> ; </symbol>
 </varDec>
 <varDec>
 <keyword> var </keyword>
 <identifier> Array </identifier>
-<identifier> a </identifier>
+<varidentifier> a </varidentifier>
 <symbol> ; </symbol>
 </varDec>
 <statements>

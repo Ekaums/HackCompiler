@@ -1,35 +1,35 @@
 <class>
 <keyword> class </keyword>
-<identifier> Square </identifier>
+<classidentifier> Square </classidentifier>
 <symbol> { </symbol>
 <classVarDec>
 <keyword> field </keyword>
 <keyword> int </keyword>
-<identifier> x </identifier>
+<fieldidentifier> x </fieldidentifier>
 <symbol> , </symbol>
-<identifier> y </identifier>
+<fieldidentifier> y </fieldidentifier>
 <symbol> ; </symbol>
 </classVarDec>
 <classVarDec>
 <keyword> field </keyword>
 <keyword> int </keyword>
-<identifier> size </identifier>
+<fieldidentifier> size </fieldidentifier>
 <symbol> ; </symbol>
 </classVarDec>
 <subroutineDec>
 <keyword> constructor </keyword>
 <identifier> Square </identifier>
-<identifier> new </identifier>
+<subroutineidentifier> new </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 <keyword> int </keyword>
-<identifier> Ax </identifier>
+<argumentidentifier> Ax </argumentidentifier>
 <symbol> , </symbol>
 <keyword> int </keyword>
-<identifier> Ay </identifier>
+<argumentidentifier> Ay </argumentidentifier>
 <symbol> , </symbol>
 <keyword> int </keyword>
-<identifier> Asize </identifier>
+<argumentidentifier> Asize </argumentidentifier>
 </parameterList>
 <symbol> ) </symbol>
 <subroutineBody>
@@ -93,7 +93,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> dispose </identifier>
+<subroutineidentifier> dispose </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -128,7 +128,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> draw </identifier>
+<subroutineidentifier> draw </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -205,7 +205,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> erase </identifier>
+<subroutineidentifier> erase </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -282,7 +282,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> incSize </identifier>
+<subroutineidentifier> incSize </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -392,7 +392,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> decSize </identifier>
+<subroutineidentifier> decSize </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -462,7 +462,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> moveUp </identifier>
+<subroutineidentifier> moveUp </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -644,7 +644,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> moveDown </identifier>
+<subroutineidentifier> moveDown </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -836,7 +836,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> moveLeft </identifier>
+<subroutineidentifier> moveLeft </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
@@ -1018,7 +1018,7 @@
 <subroutineDec>
 <keyword> method </keyword>
 <keyword> void </keyword>
-<identifier> moveRight </identifier>
+<subroutineidentifier> moveRight </subroutineidentifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
