@@ -7,6 +7,10 @@ import glob
 symbols = r"{}()[].;+-*/&|,<>=~"
 keywords = ["class", "constructor", "function", "method", "field", "static", "var", "int", "char", "boolean", "void", "true", "false", "null", "this", "let", "do", "if", "else", "while", "return"]
 
+global static, field, var, arg
+static, field, var, arg = -1,-1,-1,-1  # -1 s.t. first variable = 0
+sym_table = {}
+
 class JackTokenizer():
     
     def init(file):  # Open jack file for parsing
@@ -112,8 +116,8 @@ class JackTokenizer():
         return "<stringConstant> {} </stringConstant>\n".format(token.strip('"'))
     
     @staticmethod
-    def identifier(token, idenType):
-        return f"<{idenType}identifier> {token} </{idenType}identifier>\n"
+    def identifier(token, symbolType, index):
+        return f"<{symbolType}identifier> {token} </{symbolType}identifier> {index}\n"
     
     @staticmethod
     def write_term(token, tokenType, symbolType=""):
@@ -127,11 +131,43 @@ class JackTokenizer():
         elif tokenType == "STRING_CONST":
             return f"{JackTokenizer.stringVal(token)}"
         elif tokenType == "IDENTIFIER":
-            return f"{JackTokenizer.identifier(token, symbolType)}"
+            return f"{JackTokenizer.identifier(token, symbolType, JackTokenizer.get_index(symbolType))}"
         else:
             return "ERROR"
                         
-    
+    @staticmethod
+    def index(category):
+        global static, field, var, arg
+        
+        if category == "static":
+            static += 1
+            return "#" + str(static)
+        elif category == "field":
+            field += 1
+            return "#" + str(field)
+        elif category == "var":
+            var += 1
+            return "#" + str(var)
+        elif category == "arg":
+            arg += 1
+            return "#" + str(arg)
+        else:
+            return ""
+        
+    @staticmethod
+    def get_index(category):
+        global static, field, var, arg 
+        
+        if category == "static":
+            return "#" + str(static)
+        elif category == "field":
+            return "#" + str(field)
+        elif category == "var":
+            return "#" + str(var)
+        elif category == "arg":
+            return "#" + str(arg)
+        else:
+            return ""  
     
 class CompilationEngine():
     
@@ -197,10 +233,12 @@ class CompilationEngine():
         current = current[len(token):].strip()
         tokenType = JackTokenizer.tokenType(token)
         result += JackTokenizer.write_term(token, tokenType) 
+        print(token)
         
         token = JackTokenizer.advance(current)  # varName
-        current = current[len(token):].strip()
+        JackTokenizer.index(sf)
         result += JackTokenizer.write_term(token, "IDENTIFIER", sf)
+        current = current[len(token):].strip()
         
         token = JackTokenizer.advance(current)
         
@@ -210,8 +248,10 @@ class CompilationEngine():
             
             token = JackTokenizer.advance(current)  # varName
             current = current[len(token):].strip()
+            JackTokenizer.index(sf)
             result += JackTokenizer.write_term(token, "IDENTIFIER", sf)
             token = JackTokenizer.advance(current)
+            print(token)
             
         result += JackTokenizer.write_term(token, "SYMBOL")  # ;
         current = current[len(token):].strip()
@@ -274,7 +314,9 @@ class CompilationEngine():
             
             token = JackTokenizer.advance(current)  # varName
             current = current[len(token):].strip()
-            result += JackTokenizer.write_term(token, "IDENTIFIER", "argument")
+            JackTokenizer.index("arg")
+            result += JackTokenizer.write_term(token, "IDENTIFIER", "arg")
+            print(token)
             
             token = JackTokenizer.advance(current)  # If another arg, it will be ",""
             
@@ -289,7 +331,9 @@ class CompilationEngine():
                 current = current[len(token):].strip()
                 
                 token = JackTokenizer.advance(current)  # varName
-                result += JackTokenizer.write_term(token, "IDENTIFIER", "argument")
+                JackTokenizer.index("arg")
+                result += JackTokenizer.write_term(token, "IDENTIFIER", "arg")
+                print(token)
                 current = current[len(token):].strip()
                 
                 token = JackTokenizer.advance(current)
@@ -342,7 +386,9 @@ class CompilationEngine():
         
         token = JackTokenizer.advance(current)  # varName
         current = current[len(token):].strip()
+        JackTokenizer.index("var")
         result += JackTokenizer.write_term(token, "IDENTIFIER", "var")
+        print(token)
         
         token = JackTokenizer.advance(current)
         
@@ -353,7 +399,9 @@ class CompilationEngine():
             
             token = JackTokenizer.advance(current)  # varName
             current = current[len(token):].strip()
+            JackTokenizer.index("var")
             result += JackTokenizer.write_term(token, "IDENTIFIER", "var")
+            print(token)
             
             token = JackTokenizer.advance(current)
         
